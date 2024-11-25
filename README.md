@@ -223,6 +223,8 @@ It contains statements that map logical library names to their physical director
 
 ![Screenshot (156)](https://github.com/user-attachments/assets/8ffe3247-0c34-4100-b825-7db9ecf83f6d)
 
+
+
 ### Result
 
 The functionality of a 4bit_up-down asynchronous reset Counter was successfully verified using a test bench and simulated with the nclaunch tool.
