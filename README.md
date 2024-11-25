@@ -1,4 +1,4 @@
-# Counter_4bit_up-down
+# EXP:02 Counter_4bit_up-down
 
 ## Aim:
 
@@ -56,17 +56,51 @@ Functional Simulation:
 
 ### Verilog code for 4-Bit Up-Down Counter:
 
-*/Program  for  4-Bit Up-Down Counter
+```
 
-	Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.
+`timescale 1ns / 1 ns
+module counter(clk,m,rst,count);
+input clk,m,rst;
+output reg [3:0] count;
+always@(posedge clk or negedge rst) begin
+if (!rst)
+count=0;
+else if(m)
+count=count+1;
+else
+count=count-1;
+end
+endmodule
+
+```
+&emsp;&emsp;Use Save option or Ctrl+S to save the code or click on the save option from the top most right corner and close the text file.<br>
+<br>
 
 ## Creating Test bench:
 
 	Similarly, create your test bench using gedit <filename_tb>.v or <filename_tb>.vhdl to open a new blank document (4bitup_down_count_tb.v).
 
 ### Test-bench code for 4-Bit Up-Down Counter:
+```
 
-*/Test bench Program  for  4-Bit Up-Down Counter
+`timescale 1ns / 1ns
+module counter_test;
+reg clk,rst,m;
+wire [3:0] count;
+initial begin
+clk=0;
+rst=0;#5;
+rst=1; end
+initial begin
+m=1;
+#160 m=0; end
+counter counter1 (clk,m,rst, count);
+always #5 clk=~clk;
+initial begin $monitor("Time=%t rst=%b clk=%b count=%b" , $time,rst,clk,count);
+#320 $finish; end
+endmodule
+
+```
 
 ### To Launch Simulation tool
 	linux:/> nclaunch -new&            // “-new” option is used for invoking NCVERILOG for the first time for any design
@@ -75,11 +109,17 @@ Functional Simulation:
 
 It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple step
 
+![Screenshot (144)](https://github.com/user-attachments/assets/e8e08639-cc18-40ea-ac89-c7c62aaebc6c)
+
+
 ## Fig 3: Setting Multi-step simulation
 
 Select Multiple Step and then select “Create cds.lib File” as shown in below figure
 
 Click the cds.lib file and save the file by clicking on Save option
+
+![Screenshot (145)](https://github.com/user-attachments/assets/88d562f0-75f1-4115-8881-34c5331b2d7c)
+
 
 ## Fig 4: cds.lib file Creation
 
@@ -88,6 +128,8 @@ Click the cds.lib file and save the file by clicking on Save option
 	Select “Don’t include any libraries (verilog design)” from “New cds.lib file” and click on “OK” as in below figure
 
 	We are simulating verilog design without using any libraries
+
+![Screenshot (149)](https://github.com/user-attachments/assets/a62ce44f-c35f-40b5-9bc1-f1840cddef8b)
 
 ## Fig 5: Selection of Don’t include any libraries
 
@@ -99,9 +141,14 @@ Click the cds.lib file and save the file by clicking on Save option
 
 	Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation
 
+![image](https://github.com/user-attachments/assets/ded55134-4ff5-4a24-a9cb-da1e193e777d)
+
 ## Fig 6: Nclaunch Window
 
 To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation.
+
+![Screenshot (147)](https://github.com/user-attachments/assets/795259df-f09b-4e2e-8366-c9a02288f625)
+
 
 ## Step 1: Compilation:– Process to check the correct Verilog language syntax and usage 
 
@@ -132,6 +179,8 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 	The cds.lib file is an ASCII text file. It defines which libraries are accessible and where they are located.
 It contains statements that map logical library names to their physical directory paths. For this Design, you will define a library called “worklib”
 
+![Screenshot (153)](https://github.com/user-attachments/assets/42cbdd46-1076-413c-961b-0ca03320b52f)
+
 ## Step 2: Elaboration:– To check the port connections in hierarchical design 
 
 	Inputs: Top level design / test bench Verilog codes
@@ -154,6 +203,8 @@ It contains statements that map logical library names to their physical director
 
 ## Fig 8: Elaboration Launch Option
 
+![Screenshot (154)](https://github.com/user-attachments/assets/eca8aa35-fbf1-44be-9bbb-a1f547d2878f)
+
 ### Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
 
 	Inputs: Compiled and Elaborated top level module name 
@@ -166,9 +217,11 @@ It contains statements that map logical library names to their physical director
 
 ## Fig 9: Design Browser window for simulation
 
+![Screenshot (155)](https://github.com/user-attachments/assets/5e7a265e-2980-46da-ad38-93a1480975f2)
+
 ## Fig 10: Simulation Waveform Window
 
-## Fig 11: Simulation Waveform Window
+![Screenshot (156)](https://github.com/user-attachments/assets/8ffe3247-0c34-4100-b825-7db9ecf83f6d)
 
 ### Result
 
